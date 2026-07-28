@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5RXQ7JKTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Q5RXQ7JKTW');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Funding-Vast</title>
+  
+  <!-- Font Awesome & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto Condensed', sans-serif;
+      margin: 0;
+      padding-top: 70px; /* Space for fixed header */
+      background-color: #f4f6f9;
+      color: #333;
+      padding-bottom: 40px;
+    }
+
+    /* --- FIXED TOP HEADER --- */
+    .top-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+    }
+
+    .header-left, .header-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .icon-btn {
+      background: #f0f2f5;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #001041;
+      font-size: 1.1rem;
+      cursor: pointer;
+      position: relative;
+      transition: background-color 0.2s;
+    }
+
+    .icon-btn:hover {
+      background-color: #e4e6eb;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background-color: #dc3545;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 2px 5px;
+      border-radius: 10px;
+      border: 2px solid #fff;
+    }
+
+    /* Profile Section & Dropdown */
+    .profile-menu-container {
+      position: relative;
+    }
+
+    .profile-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f0f2f5;
+      padding: 4px 10px 4px 4px;
+      border-radius: 20px;
+      cursor: pointer;
+      border: 1px solid #e1e5eb;
+      transition: background-color 0.2s;
+    }
+
+    .profile-btn:hover {
+      background-color: #e4e6eb;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #001041;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .username {
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #001041;
+      max-width: 100px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      right: 0;
+      top: 50px;
+      background-color: #ffffff;
+      width: 200px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e1e5eb;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1010;
+      animation: dropdownFade 0.2s ease-in-out;
+    }
+
+    .dropdown-menu.show {
+      display: flex;
+    }
+
+    @keyframes dropdownFade {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown-item {
+      padding: 12px 16px;
+      color: #333;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      transition: background-color 0.2s;
+    }
+
+    .dropdown-item:hover {
+      background-color: #f8f9fa;
+      color: #007bff;
+    }
+
+    .dropdown-item.logout {
+      color: #dc3545;
+      border-top: 1px solid #eee;
+    }
+
+    .dropdown-item.logout:hover {
+      background-color: #fff5f5;
+    }
+
+    /* --- SIDEBAR MENU --- */
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.4);
+      z-index: 1050;
+      display: none;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 260px;
+      height: 100%;
+      background-color: #ffffff;
+      z-index: 1060;
+      transition: left 0.3s ease;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      background-color: #001041;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sidebar-menu {
+      padding: 15px 0;
+      list-style: none;
+      margin: 0;
+    }
+
+    .sidebar-menu a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      color: #333;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background-color 0.2s;
+    }
+
+    .sidebar-menu a:hover, .sidebar-menu a.active {
+      background-color: #f0f2f5;
+      color: #007bff;
+      border-left: 4px solid #007bff;
+    }
+
+    /* --- MAIN CONTENT & DASHBOARD CARDS --- */
+    main {
+      max-width: 650px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 22px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e1e5eb;
+      margin-bottom: 20px;
+    }
+
+    /* Main Balance Card */
+    .balance-card {
+      background: linear-gradient(135deg, #001041 0%, #002b9e 100%);
+      color: #ffffff;
+      text-align: center;
+      border-radius: 12px;
+      padding: 26px 20px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 15px rgba(0, 16, 65, 0.2);
+    }
+
+    .balance-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      opacity: 0.85;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .balance-card h2 {
+      margin: 8px 0 20px;
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+
+    .balance-card .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .balance-card .actions button {
+      background-color: #ffffff;
+      color: #001041;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .balance-card .actions button:hover {
+      background-color: #f0f2f5;
+    }
+
+    .balance-card .actions button:active {
+      transform: scale(0.98);
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .stat-box {
+      background: #ffffff;
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid #e1e5eb;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .stat-box .icon {
+      font-size: 1.5rem;
+    }
+
+    .stat-box h3 {
+      margin: 0 0 2px 0;
+      font-size: 0.75rem;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-box p {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #001041;
+    }
+
+    /* Section Headers */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 24px 0 12px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #001041;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-header a {
+      font-size: 0.85rem;
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .section-header a:hover {
+      text-decoration: underline;
+    }
+
+    /* Active Investment Cards */
+    .investment-card {
+      background: #ffffff;
+      border-radius: 8px;
+      border: 1px solid #e1e5eb;
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+
+    .investment-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .plan-title {
+      font-weight: bold;
+      font-size: 0.95rem;
+      color: #001041;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-active {
+      background: #e8f5e9;
+      color: #2e7d32;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 3px 8px;
+      border-radius: 10px;
+      text-transform: uppercase;
+    }
+
+    .investment-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      background: #f8f9fa;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .metric-item {
+      text-align: center;
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      color: #666;
+      margin-bottom: 2px;
+    }
+
+    .metric-value {
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      margin-bottom: 6px;
+      color: #666;
+    }
+
+    .progress-bar-bg {
+      height: 8px;
+      background-color: #e9ecef;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #007bff, #0056b3);
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    .empty-investment-card {
+      background: #ffffff;
+      border: 1px dashed #ced4da;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+
+    .empty-investment-card a {
+      display: inline-block;
+      margin-top: 8px;
+      color: #007bff;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    /* Quick Action Services Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 15px 0 25px;
+    }
+
+    .service-card {
+      background: #ffffff;
+      border: 1px solid #e1e5eb;
+      border-radius: 8px;
+      text-align: center;
+      padding: 16px 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .service-card a {
+      text-decoration: none;
+      color: #001041;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    .service-card i {
+      font-size: 1.3rem;
+      color: #007bff;
+    }
+
+    /* Transactions List Styling */
+    .transaction-card {
+      background: #ffffff;
+      border-radius: 10px;
+      border: 1px solid #e1e5eb;
+      padding: 8px 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+
+    #transaction-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #transaction-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f2f5;
+    }
+
+    #transaction-list li:last-child {
+      border-bottom: none;
+    }
+
+    .tx-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .tx-details strong {
+      font-size: 0.9rem;
+      color: #001041;
+      display: block;
+    }
+
+    .tx-details .timestamp {
+      font-size: 0.75rem;
+      color: #666;
+    }
+
+    .status-approved {
+      color: #2e7d32;
+      background: #e8f5e9;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+    .status-pending {
+      color: #ed6c02;
+      background: #fff4e5;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+    .status-rejected {
+      color: #d32f2f;
+      background: #ffebee;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+    /* Modal Styling */
+    .custom-alert {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .custom-alert-content {
+      background-color: #fff;
+      margin: 20% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 85%;
+      max-width: 350px;
+      text-align: center;
+    }
+
+    .btn-modal {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      margin-top: 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 480px) {
+      .username {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- FIXED HEADER -->
+<header class="top-header">
+  <div class="header-left">
+    <button class="icon-btn" id="hamburgerBtn" title="Open Navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+    <a href="index.html" style="color: #001041; text-decoration: none; font-weight: bold; font-size: 1.1rem;">
+      Funding-Vast
+    </a>
+  </div>
+
+  <div class="header-right">
+    <!-- Notification Icon with Badge -->
+    <button class="icon-btn" id="notifBtn" title="Notifications">
+      <i class="fas fa-bell"></i>
+      <span class="notification-badge" id="notifBadge" style="display: none;">0</span>
+    </button>
+
+    <!-- Profile Menu -->
+    <div class="profile-menu-container">
+      <div class="profile-btn" id="profileDropdownBtn">
+        <div class="avatar" id="avatarInitial">U</div>
+        <span class="username" id="displayUsername">User</span>
+        <i class="fas fa-chevron-down" style="font-size: 0.75rem; color: #666;"></i>
+      </div>
+
+      <div class="dropdown-menu" id="profileDropdown">
+        <a href="profile-update.html" class="dropdown-item">
+          <i class="fas fa-cog"></i> Settings
+        </a>
+        <a href="profile-update.html" class="dropdown-item">
+          <i class="fas fa-key"></i> Update Password
+        </a>
+        <a href="support.html" class="dropdown-item">
+          <i class="fas fa-question-circle"></i> Help & Support
+        </a>
+        <a href="#" class="dropdown-item logout" id="logoutBtn">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- NAVIGATION SIDEBAR -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h3 style="margin: 0; font-size: 1.1rem;">Navigation</h3>
+    <i class="fas fa-times" id="closeSidebarBtn" style="cursor: pointer; font-size: 1.2rem;"></i>
+  </div>
+      <ul class="sidebar-menu">
+    <li><a href="dashboard.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+    <li><a href="deposit.html"><i class="fas fa-wallet"></i> Deposit</a></li>
+        <li><a href="invest.html"><i class="fas fa-chart-line"></i> Invest</a></li>
+    <li><a href="Withdraw.html"><i class="fas fa-arrow-left"></i> Withdraw</a></li>
+    <li><a href="invest.html"><i class="fas fa-chart-line"></i> Investment Plans</a></li>
+        <li><a href="transactions.html"><i class="fas fa-history"></i> Transaction History</a></li>
+      <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+    <li><a href="referrals.html"><i class="fas fa-users"></i> Refer & Earn</a></li>
+    <li><a href="profile-update.html"><i class="fas fa-user-cog"></i> Account Settings</a></li>
+    <li><a href="support.html"><i class="fas fa-headset"></i> Support</a></li>
+     </ul>
+</aside>
+
+<main>
+
+  <!-- Hero Main Balance Card -->
+  <section class="balance-card">
+    <p>Main Account Balance</p>
+    <h2 id="balance-display">$0.00</h2>
+    <div class="actions">
+      <button onclick="redirectTodeposit()"><i class="fa fa-plus"></i> Deposit</button>
+      <button onclick="redirectTowithdraw()"><i class="fa fa-exchange-alt"></i> Withdraw</button>
+    </div>
+  </section>
+
+  <!-- Summary Stats Grid -->
+  <section class="stats-grid">
+    <div class="stat-box">
+      <span class="icon">💼</span>
+      <div>
+        <h3>Earned Total</h3>
+        <p id="profit-balance">$0.00</p>
+      </div>
+    </div>
+    <div class="stat-box">
+      <span class="icon">📈</span>
+      <div>
+        <h3>Total Deposits</h3>
+        <p id="deposit-balance">$0.00</p>
+      </div>
+    </div>
+    <div class="stat-box">
+      <span class="icon">💵</span>
+      <div>
+        <h3>Total Bonus</h3>
+        <p id="bonus">$0.00</p>
+      </div>
+    </div>
+    <div class="stat-box">
+      <span class="icon">💳</span>
+      <div>
+        <h3>Withdrew Total</h3>
+        <p id="withdrawal-balance">$0.00</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Active Investments Section -->
+  <div class="section-header">
+    <h2> Active Investments</h2>
+    <a href="invest.html">New Investment</a>
+  </div>
+  <div id="active-investments-container">
+    <!-- Populated dynamically or displays empty card -->
+  </div>
+
+  <!-- Quick Action Services Grid -->
+  <div class="services-grid">
+    <div class="service-card">
+      <a href="invest.html">
+        <i class="fas fa-donate"></i>
+        <span>Invest</span>
+      </a>
+    </div>
+    <div class="service-card">
+      <a href="history.html">
+        <i class="fa fa-history"></i>
+        <span>History</span>
+      </a>
+    </div>
+    <div class="service-card">
+      <a href="settings.html">
+        <i class="fa fa-cog"></i>
+        <span>Settings</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Recent Transactions Section -->
+  <div class="section-header">
+    <h2><i class="fas fa-list-alt" style="color: #007bff;"></i> Recent Transactions</h2>
+    <a href="history.html">View All</a>
+  </div>
+  <div class="transaction-card">
+    <ul id="transaction-list">
+      <!-- Populated dynamically -->
+    </ul>
+  </div>
+
+</main>
+
+<!-- Custom Alert Modal -->
+<div id="customAlert" class="custom-alert">
+  <div class="custom-alert-content">
+    <p id="alertMessage" style="margin: 0; font-size: 1rem;"></p>
+    <button id="modalOkBtn" class="btn-modal">OK</button>
+  </div>
+</div>
+
+<!-- Firebase SDKs (v8) -->
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+<script>
+  // Firebase Configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAtVvPjdsj84mWqaG4-7SyjbljCnslZ1SM",
+    authDomain: "hendaa-1.firebaseapp.com",
+    databaseURL: "https://hendaa-1-default-rtdb.firebaseio.com",
+    projectId: "hendaa-1",
+    storageBucket: "hendaa-1.appspot.com",
+    messagingSenderId: "831134776479",
+    appId: "1:831134776479:web:56cd7098fc69cd70a376aa"
+  };
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  let currentUser = null;
+  let unsubscribeNotifs = null;
+
+  // Safe Navigation Redirection Helpers
+  function redirectTodeposit() { window.location.href = "deposit.html"; }
+  function redirectTowithdraw() { window.location.href = "Withdraw.html"; }
+
+  // Currency Formatter
+  function formatCurrency(val) {
+    const number = parseFloat(val);
+    return isNaN(number) ? '$0.00' : `$${number.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  }
+
+  // Local Storage Cache Helpers
+  function saveToLocalStorage(key, data) {
+    try {
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch (e) {
+      console.warn("LocalStorage write failed:", e);
+    }
+  }
+
+  function getFromLocalStorage(key) {
+    try {
+      return JSON.parse(localStorage.getItem(key));
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function clearStaleCache(currentUserId) {
+    const activeUserInCache = localStorage.getItem('activeUserId');
+    if (activeUserInCache && activeUserInCache !== currentUserId) {
+      localStorage.clear();
+    }
+    localStorage.setItem('activeUserId', currentUserId);
+  }
+
+  // Custom Modal Alert Controls
+  function showAlert(msg) {
+    document.getElementById("alertMessage").innerText = msg;
+    document.getElementById("customAlert").style.display = "block";
+  }
+
+  document.getElementById("modalOkBtn").onclick = function() {
+    document.getElementById("customAlert").style.display = "none";
+  };
+
+  // Reset UI View to Zero State
+  function resetUI() {
+    document.getElementById('balance-display').innerText = '$0.00';
+    document.getElementById('deposit-balance').innerText = '$0.00';
+    document.getElementById('withdrawal-balance').innerText = '$0.00';
+    document.getElementById('bonus').innerText = '$0.00';
+    document.getElementById('profit-balance').innerText = '$0.00';
+    document.getElementById('displayUsername').innerText = 'User';
+    document.getElementById('avatarInitial').innerText = 'U';
+    document.getElementById('active-investments-container').innerHTML = '';
+    document.getElementById('transaction-list').innerHTML = "<li style='padding:12px; color:#6c757d; text-align:center;'>Loading transactions...</li>";
+  }
+
+  // Dashboard Metric Render
+  function updateBalanceDisplay(userData) {
+    if (!userData) return;
+    document.getElementById('balance-display').innerText = formatCurrency(userData.mainBalance ?? 0);
+    document.getElementById('deposit-balance').innerText = formatCurrency(userData.totalDeposit ?? userData.depositBalance ?? 0);
+    document.getElementById('withdrawal-balance').innerText = formatCurrency(userData.totalWithdrawal ?? userData.withdrawalBalance ?? 0);
+    document.getElementById('bonus').innerText = formatCurrency(userData.bonus ?? 0);
+    document.getElementById('profit-balance').innerText = formatCurrency(userData.profit ?? userData.profitBalance ?? 0);
+    
+    const name = userData.fullName || userData.name || (userData.email ? userData.email.split('@')[0] : 'User');
+    if (name) {
+      document.getElementById('displayUsername').innerText = name;
+      document.getElementById('avatarInitial').innerText = name.charAt(0).toUpperCase();
+    }
+  }
+
+  // Active Investments Render
+  function updateActiveInvestments(investments) {
+    const container = document.getElementById("active-investments-container");
+    container.innerHTML = "";
+
+    if (!investments || investments.length === 0) {
+      container.innerHTML = `
+        <div class="empty-investment-card">
+          <p>You have no active investment packages running.</p>
+          <a href="invest.html"><i class="fas fa-plus-circle"></i> Start an Investment</a>
+        </div>
+      `;
+      return;
+    }
+
+    investments.forEach((inv) => {
+      let progressPercent = 0;
+      let daysLeft = inv.durationDays || 30;
+
+      if (inv.startDate && inv.startDate.seconds) {
+        const startMs = inv.startDate.seconds * 1000;
+        const durationMs = (inv.durationDays || 30) * 86400000;
+        const elapsedMs = Date.now() - startMs;
+        
+        progressPercent = Math.min(100, Math.max(0, Math.round((elapsedMs / durationMs) * 100)));
+        const daysPassed = Math.floor(elapsedMs / 86400000);
+        daysLeft = Math.max(0, (inv.durationDays || 30) - daysPassed);
+      }
+
+      const cardHtml = `
+        <div class="investment-card">
+          <div class="investment-top">
+            <span class="plan-title">
+              <i class="fas fa-chart-line" style="color: #007bff;"></i>
+              ${inv.planName || 'Investment Plan'}
+            </span>
+            <span class="badge-active">Active</span>
+          </div>
+          <div class="investment-metrics">
+            <div class="metric-item">
+              <div class="metric-label">Invested</div>
+              <div class="metric-value">${formatCurrency(inv.amount || 0)}</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-label">Earned So Far</div>
+              <div class="metric-value" style="color: #2e7d32;">${formatCurrency(inv.earnedSoFar || 0)}</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-label">Target Return</div>
+              <div class="metric-value">${formatCurrency(inv.expectedReturn || 0)}</div>
+            </div>
+          </div>
+          <div class="progress-header">
+            <span>Progress (${progressPercent}%)</span>
+            <span>${daysLeft} days remaining</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width: ${progressPercent}%;"></div>
+          </div>
+        </div>
+      `;
+      container.innerHTML += cardHtml;
+    });
+  }
+
+  // Transactions Render
+  function updateTransactionList(transactions) {
+    const transactionList = document.getElementById("transaction-list");
+    transactionList.innerHTML = ""; 
+
+    if (!transactions || transactions.length === 0) {
+      transactionList.innerHTML = "<li style='padding:12px; color:#6c757d; text-align:center;'>No recent transactions</li>";
+      return;
+    }
+
+    transactions.forEach((transaction) => {
+      const statusClass = (transaction.status === 'Approved' || transaction.status === 'Completed') ? 'status-approved' :
+                          transaction.status === 'Pending' ? 'status-pending' :
+                          'status-rejected';
+
+      const icon = transaction.type === 'Deposit' ? '💰' :
+                  transaction.type === 'Withdrawal' ? '🏦' : '🔄';
+
+      let formattedDate = 'Recently';
+      if (transaction.timestamp && transaction.timestamp.seconds) {
+        formattedDate = new Date(transaction.timestamp.seconds * 1000).toLocaleString();
+      } else if (transaction.createdAt) {
+        formattedDate = new Date(transaction.createdAt).toLocaleString();
+      }
+
+      const listItem = document.createElement('li');
+      listItem.innerHTML = `
+        <div class="tx-info">
+          <span style="font-size: 1.2rem;">${icon}</span>
+          <div class="tx-details">
+            <strong>${transaction.type || 'Transaction'}</strong>
+            <span class="timestamp">${formattedDate}</span>
+          </div>
+        </div>
+        <div>
+          <span style="font-weight:bold; margin-right:8px; font-size:0.9rem;">${formatCurrency(transaction.amount || 0)}</span>
+          <span class="${statusClass}">${transaction.status || 'Pending'}</span>
+        </div>
+      `;
+      transactionList.appendChild(listItem);
+    });
+  }
+
+  // Notification Realtime Listener
+  function setupNotificationListener(userId) {
+    const notifBadge = document.getElementById("notifBadge");
+
+    if (unsubscribeNotifs) unsubscribeNotifs();
+
+    unsubscribeNotifs = db.collection("notifications")
+      .where("userId", "==", userId)
+      .onSnapshot((snapshot) => {
+        let unreadCount = 0;
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          const isRead = data.read === true || data.read === "true" || data.isRead === true || data.isRead === "true" || data.status === "read";
+          if (!isRead) unreadCount++;
+        });
+
+        if (unreadCount > 0) {
+          notifBadge.innerText = unreadCount > 99 ? '99+' : unreadCount;
+          notifBadge.style.display = "block";
+        } else {
+          notifBadge.style.display = "none";
+        }
+      }, (error) => {
+        console.error("Notification listener error:", error);
+      });
+  }
+
+  // Main Realtime Operations & Auth Observer
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      currentUser = user;
+      const userId = user.uid;
+
+      clearStaleCache(userId);
+
+      const userDataKey = `userData_${userId}`;
+      const investmentsKey = `activeInvestments_${userId}`;
+      const txKey = `transactionHistory_${userId}`;
+
+      resetUI();
+
+      // Load cached initial state
+      const cachedUserData = getFromLocalStorage(userDataKey);
+      if (cachedUserData) updateBalanceDisplay(cachedUserData);
+
+      const cachedInvestments = getFromLocalStorage(investmentsKey);
+      if (cachedInvestments) updateActiveInvestments(cachedInvestments);
+
+      const cachedTx = getFromLocalStorage(txKey);
+      if (cachedTx) updateTransactionList(cachedTx);
+
+      // Listener: User Profile Data
+      db.collection('users').doc(userId).onSnapshot((doc) => {
+        if (doc.exists) {
+          const userData = doc.data();
+          updateBalanceDisplay(userData);
+          saveToLocalStorage(userDataKey, userData);
+        }
+      }, error => console.error("Profile sync error:", error));
+
+      // Listener: Active Investments
+      db.collection('investments')
+        .where('userId', '==', userId)
+        .where('status', '==', 'Active')
+        .onSnapshot((querySnapshot) => {
+          const investments = [];
+          querySnapshot.forEach((doc) => investments.push(doc.data()));
+          updateActiveInvestments(investments);
+          saveToLocalStorage(investmentsKey, investments);
+        }, error => console.error("Investments sync error:", error));
+
+      // Listener: Recent Transactions
+      db.collection("transactions")
+        .where("userId", "==", userId)
+        .onSnapshot((querySnapshot) => {
+          const transactions = [];
+          querySnapshot.forEach((doc) => transactions.push(doc.data()));
+          
+          transactions.sort((a, b) => {
+            const timeA = a.timestamp?.seconds || 0;
+            const timeB = b.timestamp?.seconds || 0;
+            return timeB - timeA;
+          });
+
+          const recentTransactions = transactions.slice(0, 5);
+          updateTransactionList(recentTransactions);
+          saveToLocalStorage(txKey, recentTransactions);
+        }, error => console.error("Transaction fetch error:", error));
+
+      // Setup Notification Listener
+      setupNotificationListener(userId);
+
+    } else {
+      if (unsubscribeNotifs) unsubscribeNotifs();
+      localStorage.clear();
+      window.location.replace("login.html");
+    }
+  });
+
+
+  // Navigation Sidebar Handlers
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const closeSidebarBtn = document.getElementById("closeSidebarBtn");
+  const sidebar = document.getElementById("sidebar");
+  const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+  function toggleSidebar() {
+    sidebar.classList.toggle("open");
+    sidebarOverlay.style.display = sidebar.classList.contains("open") ? "block" : "none";
+  }
+
+  hamburgerBtn.addEventListener("click", toggleSidebar);
+  closeSidebarBtn.addEventListener("click", toggleSidebar);
+  sidebarOverlay.addEventListener("click", toggleSidebar);
+
+  // Profile Dropdown Toggle
+  const profileDropdownBtn = document.getElementById("profileDropdownBtn");
+  const profileDropdown = document.getElementById("profileDropdown");
+
+  profileDropdownBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    profileDropdown.classList.toggle("show");
+  });
+
+  document.addEventListener("click", () => {
+    profileDropdown.classList.remove("show");
+  });
+
+  // Notifications Redirect
+  const notifBtn = document.getElementById("notifBtn");
+  if (notifBtn) {
+    notifBtn.addEventListener("click", () => {
+      window.location.href = "notifications.html";
+    });
+  }
+
+  // Logout Event Handler
+  document.getElementById("logoutBtn").addEventListener("click", (e) => {
+    e.preventDefault();
+    if (unsubscribeNotifs) unsubscribeNotifs();
+    auth.signOut().then(() => {
+      localStorage.clear();
+      window.location.href = "login.html";
+    });
+  });
+</script>
+
+</body>
+</html>
