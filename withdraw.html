@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5RXQ7JKTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Q5RXQ7JKTW');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Withdraw Funds | Funding-Vast</title>
+  
+  <!-- Font Awesome & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto Condensed', sans-serif;
+      margin: 0;
+      padding-top: 70px; /* Space for fixed top header */
+      background-color: #f4f6f9;
+      color: #333;
+    }
+
+    /* --- FIXED TOP HEADER --- */
+    .top-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+    }
+
+    .header-left, .header-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .icon-btn {
+      background: #f0f2f5;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #001041;
+      font-size: 1.1rem;
+      cursor: pointer;
+      position: relative;
+      transition: background-color 0.2s;
+    }
+
+    .icon-btn:hover {
+      background-color: #e4e6eb;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background-color: #dc3545;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 2px 5px;
+      border-radius: 10px;
+      border: 2px solid #fff;
+    }
+
+    /* Profile Section & Dropdown */
+    .profile-menu-container {
+      position: relative;
+    }
+
+    .profile-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f0f2f5;
+      padding: 4px 10px 4px 4px;
+      border-radius: 20px;
+      cursor: pointer;
+      border: 1px solid #e1e5eb;
+      transition: background-color 0.2s;
+    }
+
+    .profile-btn:hover {
+      background-color: #e4e6eb;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #001041;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .username {
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #001041;
+      max-width: 100px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      right: 0;
+      top: 50px;
+      background-color: #ffffff;
+      width: 200px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e1e5eb;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1010;
+      animation: dropdownFade 0.2s ease-in-out;
+    }
+
+    .dropdown-menu.show {
+      display: flex;
+    }
+
+    @keyframes dropdownFade {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown-item {
+      padding: 12px 16px;
+      color: #333;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      transition: background-color 0.2s;
+    }
+
+    .dropdown-item:hover {
+      background-color: #f8f9fa;
+      color: #007bff;
+    }
+
+    .dropdown-item.logout {
+      color: #dc3545;
+      border-top: 1px solid #eee;
+    }
+
+    .dropdown-item.logout:hover {
+      background-color: #fff5f5;
+    }
+
+    /* --- SIDEBAR MENU --- */
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.4);
+      z-index: 1050;
+      display: none;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 260px;
+      height: 100%;
+      background-color: #ffffff;
+      z-index: 1060;
+      transition: left 0.3s ease;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      background-color: #001041;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sidebar-menu {
+      padding: 15px 0;
+      list-style: none;
+      margin: 0;
+    }
+
+    .sidebar-menu a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      color: #333;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background-color 0.2s;
+    }
+
+    .sidebar-menu a:hover, .sidebar-menu a.active {
+      background-color: #f0f2f5;
+      color: #007bff;
+      border-left: 4px solid #007bff;
+    }
+
+    /* --- MAIN CONTENT LAYOUT --- */
+    main {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    /* Balance Banner */
+    .balance-card {
+      background: linear-gradient(135deg, #001041 0%, #002280 100%);
+      color: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 16, 65, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .balance-card .label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.85;
+    }
+
+    .balance-card .amount {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-top: 4px;
+    }
+
+    /* --- APPROACH C: LOCKED ACCOUNT INTERCEPTOR CARD --- */
+    .lock-banner-card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      border: 1px solid #f5c6cb;
+      box-shadow: 0 4px 12px rgba(220, 53, 69, 0.1);
+      overflow: hidden;
+      margin-bottom: 25px;
+      display: none; /* JS toggles display */
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .lock-banner-header {
+      background-color: #dc3545;
+      color: white;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lock-banner-header h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .lock-banner-body {
+      padding: 20px;
+    }
+
+    .lock-fee-table {
+      background-color: #fff5f5;
+      border: 1px dashed #dc3545;
+      border-radius: 6px;
+      padding: 15px;
+      margin: 15px 0;
+      font-size: 0.95rem;
+    }
+
+    .lock-fee-table div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .lock-fee-table div:last-child {
+      margin-bottom: 0;
+      padding-top: 8px;
+      border-top: 1px solid #f5c6cb;
+      font-weight: bold;
+      color: #dc3545;
+    }
+
+    .btn-unlock-deposit {
+      display: block;
+      width: 100%;
+      background-color: #28a745;
+      color: white;
+      text-align: center;
+      padding: 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: background-color 0.2s;
+    }
+
+    .btn-unlock-deposit:hover {
+      background-color: #218838;
+    }
+
+    .policy-toggle-btn {
+      background: none;
+      border: none;
+      color: #007bff;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 10px 0 0 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .policy-details-content {
+      display: none;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #eee;
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    /* Standard Withdraw Form Card */
+    .withdraw-card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e1e5eb;
+    }
+
+    .withdraw-card h2 {
+      margin-top: 0;
+      color: #001041;
+      font-size: 1.5rem;
+      border-bottom: 2px solid #f0f2f5;
+      padding-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: #001041;
+    }
+
+    select, input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: #fff;
+      outline: none;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    select:focus, input[type="number"]:focus, input[type="text"]:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+    }
+
+    .dynamic-container {
+      display: none; /* Controlled by JS */
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .info-summary {
+      background-color: #f8f9fa;
+      border: 1px dashed #ced4da;
+      padding: 12px 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+
+    .info-summary div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .info-summary div:last-child {
+      margin-bottom: 0;
+      font-weight: bold;
+      color: #001041;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background-color: #001041;
+      color: #ffffff;
+      border: none;
+      font-weight: bold;
+      padding: 14px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-submit:hover {
+      background-color: #002280;
+    }
+
+    .btn-submit:disabled {
+      background-color: #a0a0a0;
+      cursor: not-allowed;
+    }
+
+    /* Modal Styles */
+    .custom-alert {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(2px);
+    }
+
+    .custom-alert-content {
+      background-color: #ffffff;
+      margin: 15% auto;
+      padding: 25px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .close-btn {
+      color: #aaa;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      color: #000;
+    }
+
+    .btn-modal {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 24px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-modal:hover {
+      background-color: #218838;
+    }
+
+    @media (max-width: 480px) {
+      main {
+        margin: 15px auto;
+      }
+      .withdraw-card, .lock-banner-card {
+        padding: 18px;
+      }
+      .username {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- FIXED HEADER -->
+<header class="top-header">
+  <div class="header-left">
+    <button class="icon-btn" id="hamburgerBtn" title="Open Navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+    <a href="index.html" style="color: #001041; text-decoration: none; font-weight: bold; font-size: 1.1rem;">
+      Funding-Vast
+    </a>
+  </div>
+
+  <div class="header-right">
+    <button class="icon-btn" id="notifBtn" title="Notifications">
+      <i class="fas fa-bell"></i>
+      <span class="notification-badge">2</span>
+    </button>
+
+    <div class="profile-menu-container">
+      <div class="profile-btn" id="profileDropdownBtn">
+        <div class="avatar" id="avatarInitial">U</div>
+        <span class="username" id="displayUsername">User</span>
+        <i class="fas fa-chevron-down" style="font-size: 0.75rem; color: #666;"></i>
+      </div>
+
+      <div class="dropdown-menu" id="profileDropdown">
+        <a href="settings.html" class="dropdown-item">
+          <i class="fas fa-cog"></i> Settings
+        </a>
+        <a href="update-password.html" class="dropdown-item">
+          <i class="fas fa-key"></i> Update Password
+        </a>
+        <a href="help.html" class="dropdown-item">
+          <i class="fas fa-question-circle"></i> Help & Support
+        </a>
+        <a href="#" class="dropdown-item logout" id="logoutBtn">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- NAVIGATION SIDEBAR -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h3 style="margin: 0; font-size: 1.1rem;">Navigation</h3>
+    <i class="fas fa-times" id="closeSidebarBtn" style="cursor: pointer; font-size: 1.2rem;"></i>
+  </div>
+        <ul class="sidebar-menu">
+    <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+    <li><a href="deposit.html"><i class="fas fa-wallet"></i> Deposit</a></li>
+        <li><a href="invest.html"><i class="fas fa-chart-line"></i> Invest</a></li>
+    <li><a href="Withdraw.html" class="active"><i class="fas fa-arrow-left"></i> Withdraw</a></li>
+    <li><a href="invest.html"><i class="fas fa-chart-line"></i> Investment Plans</a></li>
+        <li><a href="transactions.html"><i class="fas fa-history"></i> Transaction History</a></li>
+      <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+    <li><a href="referrals.html"><i class="fas fa-users"></i> Refer & Earn</a></li>
+    <li><a href="profile-update.html"><i class="fas fa-user-cog"></i> Account Settings</a></li>
+    <li><a href="support.html"><i class="fas fa-headset"></i> Support</a></li>
+     </ul>
+</aside>
+
+<main>
+  <!-- Available Balance Display -->
+  <div class="balance-card">
+    <div>
+      <div class="label">Available Balance</div>
+      <div class="amount" id="availableBalance">$0.00</div>
+    </div>
+    <i class="fas fa-shield-alt" style="font-size: 2rem; opacity: 0.5;"></i>
+  </div>
+
+  <!-- APPROACH C: PROTECTED LOCK INTERCEPTOR CARD (Hidden by default, shown via Firebase) -->
+  <div class="lock-banner-card" id="lockInterceptorCard">
+    <div class="lock-banner-header">
+      <i class="fas fa-lock" style="font-size: 1.4rem;"></i>
+      <h3>Account in Protected Lock Status</h3>
+    </div>
+    <div class="lock-banner-body">
+      <p style="margin-top: 0; color: #333; line-height: 1.5;">
+        Due to 90+ days of account inactivity without an active investment plan, your available balance has been placed in <strong>Protected Lock Status</strong> to safeguard your assets.
+      </p>
+
+      <div class="lock-fee-table">
+        <div>
+          <span>Monthly Maintenance Fee:</span>
+          <span>$4.00 / month</span>
+        </div>
+        <div>
+          <span>Protected Lock Duration:</span>
+          <span id="lockMonthsCount">0 months</span>
+        </div>
+        <div>
+          <span>Total Outstanding Fee:</span>
+          <span id="totalOutstandingFee">$0.00</span>
+        </div>
+      </div>
+
+      <p style="font-size: 0.9rem; color: #555; margin-bottom: 15px;">
+        To unlock your account and restore full withdrawal access, please deposit the outstanding maintenance amount. Once confirmed, the lock will be automatically removed.
+      </p>
+
+      <a href="deposit.html" class="btn-unlock-deposit">
+        <i class="fas fa-wallet"></i> Deposit Outstanding Balance to Unlock
+      </a>
+
+      <button class="policy-toggle-btn" id="policyToggleBtn">
+        <i class="fas fa-info-circle"></i> Read Full Account Inactivity & Maintenance Policy
+      </button>
+
+      <div class="policy-details-content" id="policyDetailsContent">
+        <h4 style="margin-top: 0; color: #001041;">Account Security & Maintenance Policy</h4>
+        <p>To protect the integrity of all customer assets, our platform uses a secure asset protection system. Customer funds remain under the customer's control and cannot be accessed, modified, or deducted by our company unless authorized through approved processes.</p>
+        <p><strong>Inactive Account Protection:</strong> If an account has no active investment plan and the account holder does not log in for 90 consecutive days (3 months), available funds enter Protected Lock Status.</p>
+        <p><strong>Monthly Maintenance Fee:</strong> Accounts in Protected Lock Status incur a fixed $4.00/month maintenance fee covering monitoring, asset protection infrastructure, and compliance.</p>
+        <p><strong>Unlocking:</strong> Depositing the calculated maintenance amount automatically clears the outstanding balance and restores complete access immediately.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Standard Withdrawal Form Card -->
+  <section class="withdraw-card" id="withdrawCard">
+    <h2>Withdraw Funds</h2>
+    <p class="subtitle">Select your payment method and enter payout details.</p>
+
+    <form id="withdrawForm">
+      
+      <!-- Payment Method Selection -->
+      <div class="form-group">
+        <label for="withdrawMethod">1. Choose Withdrawal Method</label>
+        <select id="withdrawMethod" name="withdrawMethod" required>
+          <option value="" disabled selected>Select Payment Method</option>
+          <option value="BITCOIN">Bitcoin (BTC)</option>
+          <option value="ETHEREUM">Ethereum (ETH)</option>
+          <option value="USDT">Tether (USDT)</option>
+          <option value="BANK_TRANSFER">Bank Wire Transfer</option>
+        </select>
+      </div>
+
+      <!-- Network Selection (Crypto Only) -->
+      <div class="form-group dynamic-container" id="networkGroup">
+        <label for="network">2. Select Blockchain Network</label>
+        <select id="network" name="network"></select>
+      </div>
+
+      <!-- Address / Account Input -->
+      <div class="form-group dynamic-container" id="destinationGroup">
+        <label for="destinationAddress" id="destinationLabel">Destination Address</label>
+        <input type="text" id="destinationAddress" name="destinationAddress" placeholder="Paste wallet address or account details">
+      </div>
+
+      <!-- Amount Input -->
+      <div class="form-group">
+        <label for="amount">3. Withdrawal Amount (USD)</label>
+        <input type="number" id="amount" name="amount" min="20" step="any" placeholder="Minimum $20" required>
+      </div>
+
+      <!-- Live Calculation Breakdown -->
+      <div class="info-summary" id="feeSummary" style="display: none;">
+        <div>
+          <span>Requested Amount:</span>
+          <span id="summaryAmount">$0.00</span>
+        </div>
+        <div>
+          <span>Processing Fee (1%):</span>
+          <span id="summaryFee">$0.00</span>
+        </div>
+        <div>
+          <span>You Receive:</span>
+          <span id="summaryTotal">$0.00</span>
+        </div>
+      </div>
+
+      <button type="submit" id="submitBtn" class="btn-submit">Submit Withdrawal Request</button>
+    </form>
+  </section>
+</main>
+
+<!-- Alert Modal -->
+<div id="customAlert" class="custom-alert">
+  <div class="custom-alert-content">
+    <span class="close-btn" id="modalCloseX">&times;</span>
+    <p id="alertMessage" style="font-size: 1.1rem; margin-top: 15px;"></p>
+    <button id="closeAlertButton" class="btn-modal">OK</button>
+  </div>
+</div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+<script>
+  // Firebase Configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAtVvPjdsj84mWqaG4-7SyjbljCnslZ1SM",
+    authDomain: "hendaa-1.firebaseapp.com",
+    databaseURL: "https://hendaa-1-default-rtdb.firebaseio.com",
+    projectId: "hendaa-1",
+    storageBucket: "hendaa-1.appspot.com",
+    messagingSenderId: "831134776479",
+    appId: "1:831134776479:web:56cd7098fc69cd70a376aa"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  const auth = firebase.auth();
+
+  let currentUser = null;
+  let userBalance = 0;
+  let pendingRedirectUrl = "";
+
+  // APPROACH C: LOCK INTERCEPTOR ELEMENTS & TOGGLE
+  const lockInterceptorCard = document.getElementById("lockInterceptorCard");
+  const withdrawCard = document.getElementById("withdrawCard");
+  const policyToggleBtn = document.getElementById("policyToggleBtn");
+  const policyDetailsContent = document.getElementById("policyDetailsContent");
+
+  policyToggleBtn.addEventListener("click", () => {
+    const isHidden = window.getComputedStyle(policyDetailsContent).display === "none";
+    policyDetailsContent.style.display = isHidden ? "block" : "none";
+  });
+
+  // Networks Mapping
+  const networksByAsset = {
+    USDT: [
+      { name: "TRC-20 (Tron)", value: "TRC20" },
+      { name: "ERC-20 (Ethereum)", value: "ERC20" },
+      { name: "BEP-20 (BNB Smart Chain)", value: "BEP20" }
+    ],
+    BITCOIN: [{ name: "Bitcoin Network", value: "BTC" }],
+    ETHEREUM: [{ name: "ERC-20 (Ethereum Network)", value: "ERC20" }]
+  };
+
+  // UI Handlers for Header & Sidebar
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const closeSidebarBtn = document.getElementById("closeSidebarBtn");
+  const sidebar = document.getElementById("sidebar");
+  const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+  function toggleSidebar() {
+    sidebar.classList.toggle("open");
+    sidebarOverlay.style.display = sidebar.classList.contains("open") ? "block" : "none";
+  }
+
+  hamburgerBtn.addEventListener("click", toggleSidebar);
+  closeSidebarBtn.addEventListener("click", toggleSidebar);
+  sidebarOverlay.addEventListener("click", toggleSidebar);
+
+  // Profile Dropdown
+  const profileDropdownBtn = document.getElementById("profileDropdownBtn");
+  const profileDropdown = document.getElementById("profileDropdown");
+
+  profileDropdownBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    profileDropdown.classList.toggle("show");
+  });
+
+  document.addEventListener("click", () => {
+    profileDropdown.classList.remove("show");
+  });
+
+  // Logout Handler
+  document.getElementById("logoutBtn").addEventListener("click", (e) => {
+    e.preventDefault();
+    auth.signOut().then(() => {
+      window.location.href = "login.html";
+    });
+  });
+
+  // Dynamic Form Field Behavior
+  const withdrawSelect = document.getElementById("withdrawMethod");
+  const networkGroup = document.getElementById("networkGroup");
+  const networkSelect = document.getElementById("network");
+  const destinationGroup = document.getElementById("destinationGroup");
+  const destinationLabel = document.getElementById("destinationLabel");
+  const destinationAddress = document.getElementById("destinationAddress");
+  const amountInput = document.getElementById("amount");
+  const feeSummary = document.getElementById("feeSummary");
+
+  withdrawSelect.addEventListener("change", function () {
+    const selectedMethod = this.value;
+
+    if (selectedMethod === "BANK_TRANSFER") {
+      networkGroup.style.display = "none";
+      networkSelect.required = false;
+
+      destinationLabel.textContent = "2. Bank Details (Bank Name, Account Number, Account Name)";
+      destinationAddress.placeholder = "e.g., Chase Bank, Acc: 123456789, Name: John Doe";
+      destinationGroup.style.display = "block";
+      destinationAddress.required = true;
+    } else {
+      const availableNetworks = networksByAsset[selectedMethod] || [];
+      networkSelect.innerHTML = "";
+
+      availableNetworks.forEach(net => {
+        const opt = document.createElement("option");
+        opt.value = net.value;
+        opt.textContent = net.name;
+        networkSelect.appendChild(opt);
+      });
+
+      networkGroup.style.display = "block";
+      networkSelect.required = true;
+
+      destinationLabel.textContent = `2. Wallet Address (${selectedMethod})`;
+      destinationAddress.placeholder = `Enter your ${selectedMethod} wallet address`;
+      destinationGroup.style.display = "block";
+      destinationAddress.required = true;
+    }
+  });
+
+  // Real-time Fee Summary Calculation
+  amountInput.addEventListener("input", function() {
+    const val = parseFloat(this.value) || 0;
+    if (val >= 20) {
+      const fee = val * 0.01; // 1% fee example
+      const total = val - fee;
+
+      document.getElementById("summaryAmount").innerText = `$${val.toFixed(2)}`;
+      document.getElementById("summaryFee").innerText = `$${fee.toFixed(2)}`;
+      document.getElementById("summaryTotal").innerText = `$${total.toFixed(2)}`;
+      feeSummary.style.display = "block";
+    } else {
+      feeSummary.style.display = "none";
+    }
+  });
+
+  // Modal Functions
+  function showCustomAlert(message, redirectUrl = "") {
+    document.getElementById("alertMessage").innerText = message;
+    pendingRedirectUrl = redirectUrl;
+    document.getElementById("customAlert").style.display = "block";
+  }
+
+  function handleModalClose() {
+    document.getElementById("customAlert").style.display = "none";
+    if (pendingRedirectUrl) {
+      window.location.href = pendingRedirectUrl;
+    }
+  }
+
+  document.getElementById("closeAlertButton").onclick = handleModalClose;
+  document.getElementById("modalCloseX").onclick = handleModalClose;
+
+  // Auth Guard & Dynamic Balance/Lock Interceptor
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      currentUser = user;
+      const name = user.email ? user.email.split('@')[0] : "User";
+      document.getElementById("displayUsername").innerText = name;
+      document.getElementById("avatarInitial").innerText = name.charAt(0).toUpperCase();
+
+      // Fetch user profile & check for Protected Lock status
+      db.collection("users").doc(user.uid).onSnapshot((doc) => {
+        if (doc.exists) {
+          const userData = doc.data();
+          userBalance = userData.mainBalance || 0;
+          document.getElementById("availableBalance").innerText = `$${userBalance.toFixed(2)}`;
+
+          // APPROACH C: Lock Interceptor Evaluation
+          const isProtectedLock = userData.isProtectedLock || false;
+          const monthsLocked = userData.protectedLockMonths || 6; // Example default fallback
+          const monthlyFee = 4.00;
+          const outstandingFee = monthsLocked * monthlyFee;
+
+          if (isProtectedLock) {
+            // Hide normal withdrawal form and show lock banner
+            withdrawCard.style.display = "none";
+            document.getElementById("lockMonthsCount").innerText = `${monthsLocked} month(s)`;
+            document.getElementById("totalOutstandingFee").innerText = `$${outstandingFee.toFixed(2)}`;
+            lockInterceptorCard.style.display = "block";
+          } else {
+            // Normal active user state
+            lockInterceptorCard.style.display = "none";
+            withdrawCard.style.display = "block";
+          }
+        }
+      });
+    } else {
+      window.location.href = "login.html";
+    }
+  });
+
+  // Submit Handler
+  document.getElementById("withdrawForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    if (!currentUser) {
+      showCustomAlert("Session expired. Please log in again.", "login.html");
+      return;
+    }
+
+    const amount = parseFloat(amountInput.value);
+    const method = withdrawSelect.value;
+    const dest = destinationAddress.value.trim();
+    const network = networkSelect.value || "N/A";
+    const submitBtn = document.getElementById("submitBtn");
+
+    if (amount > userBalance) {
+      showCustomAlert(`Insufficient balance. Your available balance is $${userBalance.toFixed(2)}.`);
+      return;
+    }
+
+    if (amount < 20) {
+      showCustomAlert("Minimum withdrawal limit is $20.");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+
+    // Record Withdrawal Transaction
+    db.collection("transactions").add({
+      type: "Withdrawal",
+      amount: amount,
+      paymentMethod: method,
+      network: network,
+      destination: dest,
+      status: "Pending",
+      userId: currentUser.uid,
+      userEmail: currentUser.email || "",
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+      showCustomAlert("Withdrawal request submitted! It will be processed shortly after admin verification.", "history.html");
+    })
+    .catch((error) => {
+      console.error("Error submitting withdrawal:", error);
+      showCustomAlert("Failed to submit request. Please try again.");
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Withdrawal Request";
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5RXQ7JKTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Q5RXQ7JKTW');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transaction History | Funding-Vast</title>
+  
+  <!-- Font Awesome & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto Condensed', sans-serif;
+      margin: 0;
+      padding-top: 70px; /* Space for fixed top header */
+      background-color: #f4f6f9;
+      color: #333;
+    }
+
+    /* --- FIXED TOP HEADER --- */
+    .top-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+    }
+
+    .header-left, .header-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .icon-btn {
+      background: #f0f2f5;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #001041;
+      font-size: 1.1rem;
+      cursor: pointer;
+      position: relative;
+      transition: background-color 0.2s;
+    }
+
+    .icon-btn:hover {
+      background-color: #e4e6eb;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background-color: #dc3545;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 2px 5px;
+      border-radius: 10px;
+      border: 2px solid #fff;
+    }
+
+    /* Profile Section & Dropdown */
+    .profile-menu-container {
+      position: relative;
+    }
+
+    .profile-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f0f2f5;
+      padding: 4px 10px 4px 4px;
+      border-radius: 20px;
+      cursor: pointer;
+      border: 1px solid #e1e5eb;
+      transition: background-color 0.2s;
+    }
+
+    .profile-btn:hover {
+      background-color: #e4e6eb;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #001041;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .username {
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #001041;
+      max-width: 100px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      right: 0;
+      top: 50px;
+      background-color: #ffffff;
+      width: 200px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e1e5eb;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1010;
+      animation: dropdownFade 0.2s ease-in-out;
+    }
+
+    .dropdown-menu.show {
+      display: flex;
+    }
+
+    @keyframes dropdownFade {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown-item {
+      padding: 12px 16px;
+      color: #333;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      transition: background-color 0.2s;
+    }
+
+    .dropdown-item:hover {
+      background-color: #f8f9fa;
+      color: #007bff;
+    }
+
+    .dropdown-item.logout {
+      color: #dc3545;
+      border-top: 1px solid #eee;
+    }
+
+    .dropdown-item.logout:hover {
+      background-color: #fff5f5;
+    }
+
+    /* --- SIDEBAR MENU --- */
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.4);
+      z-index: 1050;
+      display: none;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 260px;
+      height: 100%;
+      background-color: #ffffff;
+      z-index: 1060;
+      transition: left 0.3s ease;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      background-color: #001041;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sidebar-menu {
+      padding: 15px 0;
+      list-style: none;
+      margin: 0;
+    }
+
+    .sidebar-menu a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      color: #333;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background-color 0.2s;
+    }
+
+    .sidebar-menu a:hover, .sidebar-menu a.active {
+      background-color: #f0f2f5;
+      color: #007bff;
+      border-left: 4px solid #007bff;
+    }
+
+    /* --- MAIN CONTENT LAYOUT --- */
+    main {
+      max-width: 650px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    .history-card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e1e5eb;
+    }
+
+    .history-card h2 {
+      margin-top: 0;
+      color: #001041;
+      font-size: 1.5rem;
+      border-bottom: 2px solid #f0f2f5;
+      padding-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    /* Filter Pills */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .filter-btn {
+      background: #f0f2f5;
+      border: 1px solid #e1e5eb;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #555;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .filter-btn.active {
+      background: #001041;
+      color: #ffffff;
+      border-color: #001041;
+    }
+
+    /* Transactions List */
+    #transaction-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #transaction-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid #e1e5eb;
+    }
+
+    #transaction-list li:last-child {
+      border-bottom: none;
+    }
+
+    .tx-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .tx-icon-wrapper {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f0f2f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: #001041;
+    }
+
+    .tx-details strong {
+      font-size: 1rem;
+      display: block;
+      color: #001041;
+    }
+
+    .tx-details .timestamp {
+      font-size: 0.8rem;
+      color: #777;
+    }
+
+    .tx-right {
+      text-align: right;
+    }
+
+    .tx-amount {
+      font-size: 1rem;
+      font-weight: bold;
+      display: block;
+      color: #001041;
+    }
+
+    /* Status Badges */
+    .status-badge {
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-top: 2px;
+    }
+
+    .status-approved, .status-completed {
+      color: #2e7d32;
+      background: #e8f5e9;
+    }
+
+    .status-pending {
+      color: #ed6c02;
+      background: #fff4e5;
+    }
+
+    .status-rejected, .status-failed {
+      color: #d32f2f;
+      background: #ffebee;
+    }
+
+    .empty-state {
+      padding: 40px 16px;
+      text-align: center;
+      color: #777;
+    }
+
+    .empty-state i {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      color: #ccc;
+    }
+
+    @media (max-width: 480px) {
+      main {
+        margin: 15px auto;
+      }
+      .history-card {
+        padding: 18px;
+      }
+      .username {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- FIXED HEADER -->
+<header class="top-header">
+  <div class="header-left">
+    <button class="icon-btn" id="hamburgerBtn" title="Open Navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+    <a href="index.html" style="color: #001041; text-decoration: none; font-weight: bold; font-size: 1.1rem;">
+      Funding-Vast
+    </a>
+  </div>
+
+  <div class="header-right">
+    <!-- Notification Icon with Badge -->
+    <button class="icon-btn" id="notifBtn" title="Notifications">
+      <i class="fas fa-bell"></i>
+      <span class="notification-badge">2</span>
+    </button>
+
+    <!-- Profile Menu -->
+    <div class="profile-menu-container">
+      <div class="profile-btn" id="profileDropdownBtn">
+        <div class="avatar" id="avatarInitial">U</div>
+        <span class="username" id="displayUsername">User</span>
+        <i class="fas fa-chevron-down" style="font-size: 0.75rem; color: #666;"></i>
+      </div>
+
+      <div class="dropdown-menu" id="profileDropdown">
+        <a href="settings.html" class="dropdown-item">
+          <i class="fas fa-cog"></i> Settings
+        </a>
+        <a href="update-password.html" class="dropdown-item">
+          <i class="fas fa-key"></i> Update Password
+        </a>
+        <a href="help.html" class="dropdown-item">
+          <i class="fas fa-question-circle"></i> Help & Support
+        </a>
+        <a href="#" class="dropdown-item logout" id="logoutBtn">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- NAVIGATION SIDEBAR -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h3 style="margin: 0; font-size: 1.1rem;">Navigation</h3>
+    <i class="fas fa-times" id="closeSidebarBtn" style="cursor: pointer; font-size: 1.2rem;"></i>
+  </div>
+        <ul class="sidebar-menu">
+    <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+    <li><a href="deposit.html"><i class="fas fa-wallet"></i> Deposit</a></li>
+        <li><a href="invest.html"><i class="fas fa-chart-line"></i> Invest</a></li>
+    <li><a href="Withdraw.html"><i class="fas fa-arrow-left"></i> Withdraw</a></li>
+    <li><a href="invest.html"><i class="fas fa-chart-line"></i> Investment Plans</a></li>
+        <li><a href="transactions.html" class="active"><i class="fas fa-history"></i> Transaction History</a></li>
+      <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+    <li><a href="referrals.html"><i class="fas fa-users"></i> Refer & Earn</a></li>
+    <li><a href="profile-update.html"><i class="fas fa-user-cog"></i> Account Settings</a></li>
+    <li><a href="support.html"><i class="fas fa-headset"></i> Support</a></li>
+     </ul>
+</aside>
+
+<main>
+  <section class="history-card">
+    <h2>Transaction History</h2>
+    <p class="subtitle">View and track all your account activities.</p>
+
+    <!-- Filter Pills -->
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterTransactions('All')">All</button>
+      <button class="filter-btn" onclick="filterTransactions('Deposit')">Deposits</button>
+      <button class="filter-btn" onclick="filterTransactions('Withdrawal')">Withdrawals</button>
+      <button class="filter-btn" onclick="filterTransactions('Investment')">Investments</button>
+    </div>
+
+    <!-- Dynamic Transaction List -->
+    <ul id="transaction-list">
+      <li class="empty-state">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Loading transactions...</p>
+      </li>
+    </ul>
+  </section>
+</main>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+<script>
+  // Firebase Configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAtVvPjdsj84mWqaG4-7SyjbljCnslZ1SM",
+    authDomain: "hendaa-1.firebaseapp.com",
+    databaseURL: "https://hendaa-1-default-rtdb.firebaseio.com",
+    projectId: "hendaa-1",
+    storageBucket: "hendaa-1.appspot.com",
+    messagingSenderId: "831134776479",
+    appId: "1:831134776479:web:56cd7098fc69cd70a376aa"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  const auth = firebase.auth();
+
+  let allTransactions = [];
+  let currentFilter = 'All';
+
+  // 1. Header & Sidebar Controls
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const closeSidebarBtn = document.getElementById("closeSidebarBtn");
+  const sidebar = document.getElementById("sidebar");
+  const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+  function toggleSidebar() {
+    sidebar.classList.toggle("open");
+    sidebarOverlay.style.display = sidebar.classList.contains("open") ? "block" : "none";
+  }
+
+  hamburgerBtn.addEventListener("click", toggleSidebar);
+  closeSidebarBtn.addEventListener("click", toggleSidebar);
+  sidebarOverlay.addEventListener("click", toggleSidebar);
+
+  // Profile Dropdown Controls
+  const profileDropdownBtn = document.getElementById("profileDropdownBtn");
+  const profileDropdown = document.getElementById("profileDropdown");
+
+  profileDropdownBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    profileDropdown.classList.toggle("show");
+  });
+
+  document.addEventListener("click", () => {
+    profileDropdown.classList.remove("show");
+  });
+
+  // Logout Handler
+  document.getElementById("logoutBtn").addEventListener("click", (e) => {
+    e.preventDefault();
+    auth.signOut().then(() => {
+      localStorage.clear();
+      window.location.href = "login.html";
+    });
+  });
+
+  // 2. Transaction Filter Logic
+  function filterTransactions(type) {
+    currentFilter = type;
+    
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.innerText.includes(type) || (type === 'All' && btn.innerText === 'All')) {
+        btn.classList.add('active');
+      }
+    });
+
+    renderTransactions();
+  }
+
+  // 3. Render Transactions List
+  function renderTransactions() {
+    const listElement = document.getElementById("transaction-list");
+    listElement.innerHTML = "";
+
+    const filtered = allTransactions.filter(tx => {
+      if (currentFilter === 'All') return true;
+      return (tx.type || '').toLowerCase() === currentFilter.toLowerCase();
+    });
+
+    if (filtered.length === 0) {
+      listElement.innerHTML = `
+        <div class="empty-state">
+          <i class="fas fa-receipt"></i>
+          <p>No ${currentFilter === 'All' ? '' : currentFilter.toLowerCase()} transactions found.</p>
+        </div>
+      `;
+      return;
+    }
+
+    filtered.forEach(tx => {
+      const status = tx.status || 'Pending';
+      const statusClass = status.toLowerCase();
+
+      let iconClass = 'fa-exchange-alt';
+      if (tx.type === 'Deposit') iconClass = 'fa-arrow-down';
+      if (tx.type === 'Withdrawal') iconClass = 'fa-arrow-up';
+      if (tx.type === 'Investment') iconClass = 'fa-chart-line';
+
+      let formattedDate = 'Recently';
+      if (tx.timestamp && tx.timestamp.seconds) {
+        formattedDate = new Date(tx.timestamp.seconds * 1000).toLocaleString();
+      } else if (tx.createdAt) {
+        formattedDate = new Date(tx.createdAt).toLocaleString();
+      }
+
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <div class="tx-left">
+          <div class="tx-icon-wrapper">
+            <i class="fas ${iconClass}"></i>
+          </div>
+          <div class="tx-details">
+            <strong>${tx.type || 'Transaction'}</strong>
+            <span class="timestamp">${formattedDate}</span>
+          </div>
+        </div>
+        <div class="tx-right">
+          <span class="tx-amount">$${tx.amount || '0.00'}</span>
+          <span class="status-badge status-${statusClass}">${status}</span>
+        </div>
+      `;
+      listElement.appendChild(li);
+    });
+  }
+
+  // 4. Auth Guard & Real-Time Sync
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      const userId = user.uid;
+
+      // Personalize Header
+      const name = user.email ? user.email.split('@')[0] : "User";
+      document.getElementById("displayUsername").innerText = name;
+      document.getElementById("avatarInitial").innerText = name.charAt(0).toUpperCase();
+
+      // Load Cached History
+      const cachedTx = JSON.parse(localStorage.getItem(`transactionHistory_${userId}`));
+      if (cachedTx) {
+        allTransactions = cachedTx;
+        renderTransactions();
+      }
+
+      // Real-time Firestore Listener (No Composite Index Required)
+      db.collection("transactions")
+        .where("userId", "==", userId)
+        .onSnapshot((querySnapshot) => {
+          allTransactions = [];
+          querySnapshot.forEach((doc) => {
+            allTransactions.push(doc.data());
+          });
+
+          // Sort descending by timestamp
+          allTransactions.sort((a, b) => {
+            const timeA = a.timestamp?.seconds || 0;
+            const timeB = b.timestamp?.seconds || 0;
+            return timeB - timeA;
+          });
+
+          // Cache & Render
+          localStorage.setItem(`transactionHistory_${userId}`, JSON.stringify(allTransactions));
+          renderTransactions();
+        }, error => {
+          console.error("Error fetching transactions:", error);
+        });
+
+    } else {
+      localStorage.clear();
+      window.location.replace("login.html");
+    }
+  });
+</script>
+</body>
+</html>

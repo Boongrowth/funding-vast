@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5RXQ7JKTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Q5RXQ7JKTW');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | Funding-Vast</title>
+  
+  <!-- Font Awesome & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto Condensed', sans-serif;
+      margin: 0;
+      padding-top: 70px; /* Space for fixed header */
+      background-color: #f4f6f9;
+      color: #333;
+    }
+
+    /* --- FIXED TOP HEADER --- */
+    .top-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+    }
+
+    .header-brand {
+      color: #001041;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .header-link {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    .header-link:hover {
+      text-decoration: underline;
+    }
+
+    /* --- PAGE CONTENT --- */
+    main {
+      max-width: 450px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    .signup-card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 30px 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e1e5eb;
+    }
+
+    .signup-card h2 {
+      margin-top: 0;
+      color: #001041;
+      font-size: 1.6rem;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #001041;
+      font-size: 0.9rem;
+    }
+
+    input[type="text"], 
+    input[type="email"], 
+    input[type="password"] {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus, 
+    input[type="email"]:focus, 
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    .referral-notice {
+      background-color: #eef4ff;
+      border-left: 4px solid #007bff;
+      color: #001041;
+      padding: 10px 12px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      margin-bottom: 18px;
+      display: none; /* Shown dynamically if ref parameter exists */
+    }
+
+    .btn-submit {
+      width: 100%;
+      background-color: #001041;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+      background-color: #002b9e;
+    }
+
+    .btn-submit:disabled {
+      background-color: #a0a0a0;
+      cursor: not-allowed;
+    }
+
+    .login-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .login-footer a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .login-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Modal Styling */
+    .custom-alert {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .custom-alert-content {
+      background-color: #fff;
+      margin: 20% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 85%;
+      max-width: 350px;
+      text-align: center;
+    }
+
+    .btn-modal {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      margin-top: 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<!-- FIXED HEADER -->
+<header class="top-header">
+  <a href="index.html" class="header-brand">Funding-Vast</a>
+  <a href="login.html" class="header-link">Log In</a>
+</header>
+
+<main>
+  <section class="signup-card">
+    <h2>Create Account</h2>
+    <p class="subtitle">Join Funding-Vast and start managing your balance today.</p>
+
+    <!-- Banner shown if referred by another user -->
+    <div class="referral-notice" id="referralNotice">
+      <i class="fas fa-user-friends"></i> You are signing up via a referral link!
+    </div>
+
+    <form id="signupForm">
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" placeholder="Enter your full name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="name@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Create a password (min 6 characters)" required minlength="6">
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="Confirm password" required>
+      </div>
+
+      <!-- Optional or captured referral code -->
+      <div class="form-group">
+        <label for="referredByCode">Referral Code (Optional)</label>
+        <input type="text" id="referredByCode" placeholder="Enter referral code if any">
+      </div>
+
+      <button type="submit" id="submitBtn" class="btn-submit">Sign Up</button>
+    </form>
+
+    <div class="login-footer">
+      Already have an account? <a href="login.html">Log In</a>
+    </div>
+  </section>
+</main>
+
+<!-- Alert Modal -->
+<div id="customAlert" class="custom-alert">
+  <div class="custom-alert-content">
+    <p id="alertMessage" style="margin: 0; font-size: 1rem;"></p>
+    <button id="modalOkBtn" class="btn-modal">OK</button>
+  </div>
+</div>
+
+<!-- Firebase SDK v8 -->
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+<script>
+  // Firebase Configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAtVvPjdsj84mWqaG4-7SyjbljCnslZ1SM",
+    authDomain: "hendaa-1.firebaseapp.com",
+    databaseURL: "https://hendaa-1-default-rtdb.firebaseio.com",
+    projectId: "hendaa-1",
+    storageBucket: "hendaa-1.appspot.com",
+    messagingSenderId: "831134776479",
+    appId: "1:831134776479:web:56cd7098fc69cd70a376aa"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  const auth = firebase.auth();
+
+  // Capture 'ref' parameter from the URL if present
+  const urlParams = new URLSearchParams(window.location.search);
+  const refFromUrl = urlParams.get('ref');
+
+  if (refFromUrl) {
+    document.getElementById("referredByCode").value = refFromUrl;
+    document.getElementById("referralNotice").style.display = "block";
+  }
+
+  // Alert Modal Helper
+  function showAlert(msg, redirect = false) {
+    document.getElementById("alertMessage").innerText = msg;
+    document.getElementById("customAlert").style.display = "block";
+    
+    document.getElementById("modalOkBtn").onclick = function() {
+      document.getElementById("customAlert").style.display = "none";
+      if (redirect) {
+        window.location.href = "index.html";
+      }
+    };
+  }
+
+  // Sign Up Form Submit Handler
+  document.getElementById("signupForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const fullName = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const referredBy = document.getElementById("referredByCode").value.trim() || null;
+
+    if (password !== confirmPassword) {
+      showAlert("Passwords do not match. Please re-enter.");
+      return;
+    }
+
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Creating Account...";
+
+    // 1. Create Auth Account
+    auth.createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        const newReferralCode = user.uid.substring(0, 8); // Generate unique 8-char code
+
+        // 2. Save User Document to Firestore
+        return db.collection("users").doc(user.uid).set({
+          uid: user.uid,
+          fullName: fullName,
+          email: email,
+          referralCode: newReferralCode,
+          referredBy: referredBy,
+          mainBalance: 0,
+          totalProfit: 0,
+          depositBalance: 0,
+          withdrawalBalance: 0,
+          bonus: 0,
+          status: "active",
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      })
+      .then(() => {
+        showAlert("Account created successfully! Redirecting to dashboard...", true);
+      })
+      .catch((error) => {
+        console.error("Signup Error:", error);
+        showAlert(error.message || "Failed to create account. Please try again.");
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Sign Up";
+      });
+  });
+</script>
+
+</body>
+</html>

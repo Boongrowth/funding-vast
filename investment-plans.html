@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5RXQ7JKTW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Q5RXQ7JKTW');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investment Plans | Funding-Vast</title>
+  
+  <!-- Font Awesome & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto Condensed', sans-serif;
+      padding-top: 75px; /* Space for fixed top header */
+      background-color: #f4f6f9;
+      color: #333;
+      padding-bottom: 40px;
+    }
+
+    /* --- FIXED TOP HEADER --- */
+    .top-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+    }
+
+    .header-left, .header-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .icon-btn {
+      background: #f0f2f5;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #001041;
+      font-size: 1.1rem;
+      cursor: pointer;
+      position: relative;
+      transition: background-color 0.2s;
+    }
+
+    .icon-btn:hover {
+      background-color: #e4e6eb;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background-color: #dc3545;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 2px 5px;
+      border-radius: 10px;
+      border: 2px solid #fff;
+    }
+
+    /* Profile Section & Dropdown */
+    .profile-menu-container {
+      position: relative;
+    }
+
+    .profile-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f0f2f5;
+      padding: 4px 10px 4px 4px;
+      border-radius: 20px;
+      cursor: pointer;
+      border: 1px solid #e1e5eb;
+      transition: background-color 0.2s;
+    }
+
+    .profile-btn:hover {
+      background-color: #e4e6eb;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #001041;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .username {
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #001041;
+      max-width: 100px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      right: 0;
+      top: 50px;
+      background-color: #ffffff;
+      width: 200px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e1e5eb;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1010;
+      animation: dropdownFade 0.2s ease-in-out;
+    }
+
+    .dropdown-menu.show {
+      display: flex;
+    }
+
+    @keyframes dropdownFade {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown-item {
+      padding: 12px 16px;
+      color: #333;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      transition: background-color 0.2s;
+    }
+
+    .dropdown-item:hover {
+      background-color: #f8f9fa;
+      color: #007bff;
+    }
+
+    .dropdown-item.logout {
+      color: #dc3545;
+      border-top: 1px solid #eee;
+    }
+
+    .dropdown-item.logout:hover {
+      background-color: #fff5f5;
+    }
+
+    /* --- SIDEBAR MENU --- */
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.4);
+      z-index: 1050;
+      display: none;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 260px;
+      height: 100%;
+      background-color: #ffffff;
+      z-index: 1060;
+      transition: left 0.3s ease;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      background-color: #001041;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sidebar-menu {
+      padding: 15px 0;
+      list-style: none;
+      margin: 0;
+    }
+
+    .sidebar-menu a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      color: #333;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background-color 0.2s;
+    }
+
+    .sidebar-menu a:hover, .sidebar-menu a.active {
+      background-color: #f0f2f5;
+      color: #007bff;
+      border-left: 4px solid #007bff;
+    }
+
+    /* --- PAGE CONTENT CONTAINER --- */
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* Account Balance Banner */
+    .balance-banner {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #e1e5eb;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .balance-banner span {
+      font-size: 13px;
+      color: #666;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .balance-banner h3 {
+      font-size: 22px;
+      color: #001041;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Plans Grid */
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .plan-card {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid #e1e5eb;
+      padding: 24px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .plan-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .plan-card.popular {
+      border: 2px solid #007bff;
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #007bff;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 12px;
+      text-transform: uppercase;
+    }
+
+    .plan-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+      color: #001041;
+    }
+
+    .plan-name {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #001041;
+    }
+
+    .plan-rate {
+      font-size: 28px;
+      font-weight: 700;
+      color: #28a745;
+      margin-bottom: 4px;
+    }
+
+    .plan-rate-sub {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .plan-details {
+      list-style: none;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      padding: 16px 0;
+      margin-bottom: 20px;
+    }
+
+    .plan-details li {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .plan-details li:last-child {
+      margin-bottom: 0;
+    }
+
+    .plan-details span:first-child {
+      color: #666;
+    }
+
+    .btn-invest {
+      width: 100%;
+      background: #001041;
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-invest:hover {
+      background: #007bff;
+    }
+
+    /* Investment Modal Overlay */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 420px;
+      padding: 24px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      position: relative;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: #666;
+      cursor: pointer;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #001041;
+    }
+
+    .input-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      outline: none;
+    }
+
+    .input-group input:focus {
+      border-color: #007bff;
+    }
+
+    .calc-preview {
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #e1e5eb;
+    }
+
+    .calc-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .calc-row:last-child {
+      margin-bottom: 0;
+      font-weight: 700;
+      color: #007bff;
+    }
+
+    .btn-confirm {
+      width: 100%;
+      background: #28a745;
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-confirm:hover {
+      background: #218838;
+    }
+
+    .btn-confirm:disabled {
+      background: #a0a0a0;
+      cursor: not-allowed;
+    }
+
+    /* Modal Alert Styling */
+    .custom-alert {
+      display: none;
+      position: fixed;
+      z-index: 2100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .custom-alert-content {
+      background-color: #fff;
+      margin: 20% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 85%;
+      max-width: 350px;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-modal {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      margin-top: 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 480px) {
+      .username {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- FIXED HEADER -->
+<header class="top-header">
+  <div class="header-left">
+    <button class="icon-btn" id="hamburgerBtn" title="Open Navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+    <a href="index.html" style="color: #001041; text-decoration: none; font-weight: bold; font-size: 1.1rem;">
+      Funding-Vast
+    </a>
+  </div>
+
+  <div class="header-right">
+    <!-- Notification Icon with Badge -->
+    <button class="icon-btn" id="notifBtn" title="Notifications">
+      <i class="fas fa-bell"></i>
+      <span class="notification-badge">2</span>
+    </button>
+
+    <!-- Profile Menu -->
+    <div class="profile-menu-container">
+      <div class="profile-btn" id="profileDropdownBtn">
+        <div class="avatar" id="avatarInitial">U</div>
+        <span class="username" id="displayUsername">User</span>
+        <i class="fas fa-chevron-down" style="font-size: 0.75rem; color: #666;"></i>
+      </div>
+
+      <div class="dropdown-menu" id="profileDropdown">
+        <a href="settings.html" class="dropdown-item">
+          <i class="fas fa-cog"></i> Settings
+        </a>
+        <a href="update-password.html" class="dropdown-item">
+          <i class="fas fa-key"></i> Update Password
+        </a>
+        <a href="help.html" class="dropdown-item">
+          <i class="fas fa-question-circle"></i> Help & Support
+        </a>
+        <a href="#" class="dropdown-item logout" id="logoutBtn">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- NAVIGATION SIDEBAR -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h3 style="margin: 0; font-size: 1.1rem;">Navigation</h3>
+    <i class="fas fa-times" id="closeSidebarBtn" style="cursor: pointer; font-size: 1.2rem;"></i>
+  </div>
+      <ul class="sidebar-menu">
+    <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+    <li><a href="deposit.html"><i class="fas fa-wallet"></i> Deposit</a></li>
+        <li><a href="invest.html"><i class="fas fa-chart-line"></i> Invest</a></li>
+    <li><a href="Withdraw.html"><i class="fas fa-arrow-left"></i> Withdraw</a></li>
+    <li><a href="invest.html" class="active"><i class="fas fa-chart-line"></i> Investment Plans</a></li>
+        <li><a href="transactions.html"><i class="fas fa-history"></i> Transaction History</a></li>
+      <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+    <li><a href="referrals.html"><i class="fas fa-users"></i> Refer & Earn</a></li>
+    <li><a href="profile-update.html"><i class="fas fa-user-cog"></i> Account Settings</a></li>
+    <li><a href="support.html"><i class="fas fa-headset"></i> Support</a></li>
+     </ul>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="container">
+
+  <!-- Account Balance Display -->
+  <div class="balance-banner">
+    <div>
+      <span>Available Balance</span>
+      <h3 id="user-balance">$0.00</h3>
+    </div>
+    <a href="deposit.html" style="color: #007bff; text-decoration: none; font-size: 14px; font-weight: 600; font-family: 'Inter', sans-serif;">+ Deposit Funds</a>
+  </div>
+
+  <!-- Investment Plans Grid -->
+  <div class="plans-grid">
+    
+    <!-- Starter Plan -->
+    <div class="plan-card">
+      <div class="plan-icon"><i class="fas fa-seedling"></i></div>
+      <h2 class="plan-name">Starter Plan</h2>
+      <div class="plan-rate">2.5%</div>
+      <div class="plan-rate-sub">Daily Interest Rate</div>
+      <ul class="plan-details">
+        <li><span>Minimum:</span> <strong>$50</strong></li>
+        <li><span>Maximum:</span> <strong>$499</strong></li>
+        <li><span>Duration:</span> <strong>14 Days</strong></li>
+        <li><span>Capital Return:</span> <strong>Yes</strong></li>
+      </ul>
+      <button class="btn-invest" onclick="openInvestModal('Starter Plan', 2.5, 50, 499, 14)">Invest Now</button>
+    </div>
+
+    <!-- Silver Plan (Popular) -->
+    <div class="plan-card popular">
+      <div class="popular-badge">Most Popular</div>
+      <div class="plan-icon"><i class="fas fa-gem"></i></div>
+      <h2 class="plan-name">Silver Plan</h2>
+      <div class="plan-rate">4.0%</div>
+      <div class="plan-rate-sub">Daily Interest Rate</div>
+      <ul class="plan-details">
+        <li><span>Minimum:</span> <strong>$500</strong></li>
+        <li><span>Maximum:</span> <strong>$2,499</strong></li>
+        <li><span>Duration:</span> <strong>21 Days</strong></li>
+        <li><span>Capital Return:</span> <strong>Yes</strong></li>
+      </ul>
+      <button class="btn-invest" onclick="openInvestModal('Silver Plan', 4.0, 500, 2499, 21)">Invest Now</button>
+    </div>
+
+    <!-- Gold Plan -->
+    <div class="plan-card">
+      <div class="plan-icon"><i class="fas fa-crown"></i></div>
+      <h2 class="plan-name">Gold VIP Plan</h2>
+      <div class="plan-rate">6.5%</div>
+      <div class="plan-rate-sub">Daily Interest Rate</div>
+      <ul class="plan-details">
+        <li><span>Minimum:</span> <strong>$2,500</strong></li>
+        <li><span>Maximum:</span> <strong>$10,000</strong></li>
+        <li><span>Duration:</span> <strong>30 Days</strong></li>
+        <li><span>Capital Return:</span> <strong>Yes</strong></li>
+      </ul>
+      <button class="btn-invest" onclick="openInvestModal('Gold VIP Plan', 6.5, 2500, 10000, 30)">Invest Now</button>
+    </div>
+
+  </div>
+</main>
+
+<!-- Investment Modal -->
+<div id="investModal" class="modal-overlay">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeInvestModal()">&times;</button>
+    <h2 class="modal-title" id="modalPlanName">Subscribe to Plan</h2>
+
+    <div class="input-group">
+      <label for="investAmount">Enter Amount ($)</label>
+      <input type="number" id="investAmount" placeholder="0.00" oninput="calculateReturns()">
+    </div>
+
+    <div class="calc-preview">
+      <div class="calc-row">
+        <span>Daily Profit:</span>
+        <strong id="calcDailyProfit">$0.00</strong>
+      </div>
+      <div class="calc-row">
+        <span>Duration:</span>
+        <strong id="calcDuration">0 Days</strong>
+      </div>
+      <div class="calc-row">
+        <span>Est. Total Return:</span>
+        <strong id="calcTotalReturn">$0.00</strong>
+      </div>
+    </div>
+
+    <button id="confirmInvestBtn" class="btn-confirm" onclick="processInvestment()">Confirm & Invest</button>
+  </div>
+</div>
+
+<!-- Alert Modal -->
+<div id="customAlert" class="custom-alert">
+  <div class="custom-alert-content">
+    <p id="alertMessage" style="margin: 0; font-size: 1rem;"></p>
+    <button id="modalOkBtn" class="btn-modal">OK</button>
+  </div>
+</div>
+
+<!-- Firebase SDK v8 -->
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAtVvPjdsj84mWqaG4-7SyjbljCnslZ1SM",
+    authDomain: "hendaa-1.firebaseapp.com",
+    databaseURL: "https://hendaa-1-default-rtdb.firebaseio.com",
+    projectId: "hendaa-1",
+    storageBucket: "hendaa-1.appspot.com",
+    messagingSenderId: "831134776479",
+    appId: "1:831134776479:web:56cd7098fc69cd70a376aa"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  const auth = firebase.auth();
+
+  let currentUser = null;
+  let currentBalance = 0;
+  let selectedPlan = null;
+
+  // Auth Guard, User Details & Balance Sync
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      currentUser = user;
+
+      // Update header profile
+      const name = user.email ? user.email.split('@')[0] : "User";
+      document.getElementById("displayUsername").innerText = name;
+      document.getElementById("avatarInitial").innerText = name.charAt(0).toUpperCase();
+
+      // Listen for Live Account Balance
+      db.collection('users').doc(user.uid).onSnapshot(doc => {
+        if (doc.exists) {
+          currentBalance = doc.data().mainBalance || 0;
+          document.getElementById('user-balance').innerText = `$${currentBalance.toFixed(2)}`;
+        }
+      });
+    } else {
+      window.location.href = "login.html";
+    }
+  });
+
+  // UI Interactive Handlers
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const closeSidebarBtn = document.getElementById("closeSidebarBtn");
+  const sidebar = document.getElementById("sidebar");
+  const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+  function toggleSidebar() {
+    sidebar.classList.toggle("open");
+    sidebarOverlay.style.display = sidebar.classList.contains("open") ? "block" : "none";
+  }
+
+  hamburgerBtn.addEventListener("click", toggleSidebar);
+  closeSidebarBtn.addEventListener("click", toggleSidebar);
+  sidebarOverlay.addEventListener("click", toggleSidebar);
+
+  // Profile Dropdown Toggle
+  const profileDropdownBtn = document.getElementById("profileDropdownBtn");
+  const profileDropdown = document.getElementById("profileDropdown");
+
+  profileDropdownBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    profileDropdown.classList.toggle("show");
+  });
+
+  document.addEventListener("click", () => {
+    profileDropdown.classList.remove("show");
+  });
+
+  // Logout Handler
+  document.getElementById("logoutBtn").addEventListener("click", (e) => {
+    e.preventDefault();
+    auth.signOut().then(() => {
+      window.location.href = "login.html";
+    });
+  });
+
+  // Custom Alert Modal Function
+  function showAlert(msg, redirect = false) {
+    document.getElementById("alertMessage").innerText = msg;
+    document.getElementById("customAlert").style.display = "block";
+    
+    document.getElementById("modalOkBtn").onclick = function() {
+      document.getElementById("customAlert").style.display = "none";
+      if (redirect) {
+        window.location.href = "index.html";
+      }
+    };
+  }
+
+  // Open Investment Modal
+  function openInvestModal(name, rate, min, max, duration) {
+    selectedPlan = { name, rate, min, max, duration };
+    document.getElementById('modalPlanName').innerText = name;
+    document.getElementById('investAmount').value = min;
+    document.getElementById('investAmount').min = min;
+    document.getElementById('investAmount').max = max;
+    document.getElementById('calcDuration').innerText = `${duration} Days`;
+    
+    calculateReturns();
+    document.getElementById('investModal').style.display = 'flex';
+  }
+
+  function closeInvestModal() {
+    document.getElementById('investModal').style.display = 'none';
+  }
+
+  // Live Earnings Calculator
+  function calculateReturns() {
+    if (!selectedPlan) return;
+    const amount = parseFloat(document.getElementById('investAmount').value) || 0;
+    
+    const dailyProfit = (amount * selectedPlan.rate) / 100;
+    const totalProfit = dailyProfit * selectedPlan.duration;
+    const totalReturn = amount + totalProfit;
+
+    document.getElementById('calcDailyProfit').innerText = `$${dailyProfit.toFixed(2)}`;
+    document.getElementById('calcTotalReturn').innerText = `$${totalReturn.toFixed(2)}`;
+  }
+
+  // Process Investment Transaction
+  async function processInvestment() {
+    const amount = parseFloat(document.getElementById('investAmount').value);
+    const btn = document.getElementById('confirmInvestBtn');
+
+    if (!amount || amount < selectedPlan.min || amount > selectedPlan.max) {
+      showAlert(`Amount must be between $${selectedPlan.min} and $${selectedPlan.max}`);
+      return;
+    }
+
+    if (amount > currentBalance) {
+      showAlert("Insufficient account balance. Please deposit funds first.");
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerText = "Processing...";
+
+    try {
+      const userRef = db.collection('users').doc(currentUser.uid);
+      
+      const dailyProfit = (amount * selectedPlan.rate) / 100;
+      const totalProfit = dailyProfit * selectedPlan.duration;
+      const expectedReturn = amount + totalProfit;
+
+      // 1. Deduct balance from user account
+      await userRef.update({
+        mainBalance: firebase.firestore.FieldValue.increment(-amount)
+      });
+
+      // 2. Add document to active investments collection
+      await db.collection('investments').add({
+        userId: currentUser.uid,
+        userEmail: currentUser.email || "",
+        planName: selectedPlan.name,
+        amount: amount,
+        dailyRate: selectedPlan.rate,
+        earnedSoFar: 0,
+        expectedReturn: expectedReturn,
+        durationDays: selectedPlan.duration,
+        startDate: firebase.firestore.FieldValue.serverTimestamp(),
+        status: 'Active'
+      });
+
+      // 3. Log into transaction history
+      await db.collection('transactions').add({
+        userId: currentUser.uid,
+        type: 'Investment',
+        amount: amount,
+        status: 'Approved',
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      closeInvestModal();
+      showAlert("Investment activated successfully!", true);
+
+    } catch (error) {
+      console.error("Investment Error:", error);
+      showAlert("Transaction failed. Please try again.");
+    } finally {
+      btn.disabled = false;
+      btn.innerText = "Confirm & Invest";
+    }
+  }
+</script>
+
+</body>
+</html>
